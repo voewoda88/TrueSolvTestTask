@@ -1,0 +1,118 @@
+<template>
+    <template if:true={recordId}>
+        <lightning-card>
+            <div class="slds-grid slds-wrap slds-m-around_medium">
+                <div class="slds-col slds-size_1-of-4">
+                    <div class="slds-grid slds-grid_align-spread">
+                        <p class="slds-p-left_large custom-account-name-style">{accountName}</p>
+                        <p class="slds-p-right_large custom-account-number-style" style="margin-top: 3px;">{accountNumber}</p>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_3-of-4">
+                    <div class="slds-float_right">
+                        <template if:true={isManager}>
+                            <lightning-button
+                                class="slds-p-right_medium" 
+                                variant="brand"
+                                onclick={handleCreacteProductClick} 
+                                label="Create Product">
+                            </lightning-button>
+                        </template>
+                        <lightning-button
+                            class="slds-p-right_small"
+                            label="Cart"
+                            onclick={handleCartClick}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+        <div class="slds-grid slds-wrap slds-m-top_medium">
+            <div class="slds-col slds-size_1-of-4">
+                <lightning-card title="Filters" icon-name="standard:calibration">
+                    <p class="slds-m-left_medium" style="font-weight: bold;">Type:</p>
+                    <lightning-radio-group
+                        class="slds-m-left_large"
+                        name="typeRadioGroup"
+                        value={productTypeComboboxValue}
+                        options={productTypeComboboxOptions}
+                        onchange={handleProductTypeChange}
+                        type="radio">
+                    </lightning-radio-group>
+                    <p class="slds-m-left_medium slds-m-top_medium" style="font-weight: bold;">Family: </p>
+                    <lightning-radio-group
+                        class="slds-m-left_large"
+                        name="familyRadioGroup"
+                        value={productFamilyComboboxValue}
+                        options={productFamilyComboboxOptions}
+                        onchange={handleProductFamilyChange}
+                        type="radio">
+                    </lightning-radio-group>
+                    <lightning-button
+                        class="slds-m-left_medium"
+                        style="font-size: 16px;"
+                        variant="base"
+                        label="Clear"
+                        onclick={handleClearFilterClick}>
+                    </lightning-button>
+                </lightning-card>
+            </div>
+            <div class="slds-col slds-size_3-of-4">
+                <div class="slds-m-left_medium">
+                    <lightning-card>
+                        <lightning-input
+                            class="slds-m-around_medium"
+                            style="margin-top: -13px;"
+                            type="text"
+                            label="Search Key"
+                            value={searchKey}
+                            onchange={handleSearchKeyChange}
+                            placeholder="Enter search key">
+                        </lightning-input>
+                    </lightning-card>
+                </div>
+                <div class="slds-grid slds-wrap slds-gutters slds-p-around_medium">
+                    <template for:each={products} for:item="product">
+                        <div key={product.Id} class="slds-col slds-size_1-of-4 slds-p-around_small">
+                            <lightning-card>
+                                <div class="slds-grid slds-wrap slds-m-around_medium">
+                                    <div class="slds-col slds-text-align_center">
+                                        <p class="custom-product-name-style">{product.Name}</p>
+                                        <p class="custom-product-description-style">{product.Description__c}</p>
+                                        <div class="slds-grid slds-grid_align-center slds-m-top_medium custom-button-container">
+                                            <lightning-button
+                                                class="slds-m-right_small"
+                                                label="Details"
+                                                variant="neutral"
+                                                onclick={handleDetailsClick}
+                                                data-id={product.Id}>
+                                            </lightning-button>
+                                            <lightning-button
+                                                label="Add"
+                                                variant="brand"
+                                                onclick={handleAddClick}
+                                                data-id={product.Id}>
+                                            </lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </lightning-card>
+                        </div>
+                    </template>
+                </div>
+                <c-paginator
+                    page-number={pageNumber}
+                    page-size={pageSize}
+                    total-item-count={totalItemCount}
+                    onprevious={handlePreviousPage}
+                    onnext={handleNextPage}
+                ></c-paginator>
+            </div>
+        </div>
+    </template>
+    <template if:false={recordId}>
+        <lightning-card>
+            <p class="slds-m-left_medium">Page is not available. You must navigate to this page from the Account layout.</p>
+        </lightning-card>
+    </template>
+</template>
