@@ -1,0 +1,24 @@
+<template>
+    <lightning-modal-header label="Product Cart"></lightning-modal-header>
+    <lightning-modal-body>
+        <template if:true={nonReactiveProducts.length}>
+            <lightning-datatable
+                key-field="Id"
+                data={nonReactiveProducts}
+                columns={columns}
+                hide-checkbox-column="true"
+                draft-values={draftValues}
+                onsave={handleSave}>
+            </lightning-datatable>
+        </template>
+        <template if:false={nonReactiveProducts.length}>
+            <p>Your cart is empty</p>
+        </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        <template if:true={nonReactiveProducts.length}>
+            <lightning-button class="slds-m-left_small" variant="brand" label="Checkout" onclick={handleCheckoutClick}></lightning-button>
+        </template>
+    </lightning-modal-footer>
+</template>

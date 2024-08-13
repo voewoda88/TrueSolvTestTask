@@ -1,0 +1,17 @@
+<template>
+    <lightning-modal-header label={modalLabel}></lightning-modal-header>
+    <lightning-modal-body>
+        <p class="custom-header-style">Details:</p>
+        <p class="slds-m-top_x-small custom-description-text-style">{product.Description__c}</p>
+        <p class="slds-m-top_medium custom-header-style">Type:</p>
+        <p class="slds-m-top_x-small custom-type-and-family-style">{product.Type__c}</p>
+        <p class="slds-m-top_medium custom-header-style">Family:</p>
+        <p class="slds-m-top_x-small custom-type-and-family-style">{product.Family__c}</p>
+        <p class="slds-m-top_medium custom-header-style">Price:</p>
+        <p class="slds-m-top_x-small custom-price-style">{product.Price__c}$</p>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        <lightning-button class="slds-m-left_small" variant="brand" label="Add" onclick={handleAdd}></lightning-button>
+    </lightning-modal-footer>
+</template>
